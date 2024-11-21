@@ -22,26 +22,37 @@ class TestProductViewSet(APITestCase):
             title='rtx gpu 1',
             price=1000,
         )
+        # criação do token com o user atual
+        token = Token.objects.create(user=self.user)
+        # token salvo
+        token.save()
 
     def test_get_all_product(self):
+        # pega o token do usuario
+        token = Token.objects.get(user__username=self.user.username)
+        # atrubui para HTTP_AUTHORIZATION do self.client
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         # usando o self.client para fazer requisição usando o basename
         response = self.client.get(
             reverse('product-list', kwargs={'version': 'v1'})
         )
-
         # verifica se a rquisição deu certo
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # transforma a response em objeto
         product_data = json.loads(response.content)
 
-        self.assertEqual(product_data
+        self.assertEqual(product_data['results']
                          [0]['title'], self.product.title)
-        self.assertEqual(product_data
+        self.assertEqual(product_data['results']
                          [0]['price'], self.product.price)
-        self.assertEqual(product_data
+        self.assertEqual(product_data['results']
                          [0]['active'], self.product.active)
 
     def test_create_product(self):
+        # pega o token do usuario
+        token = Token.objects.get(user__username=self.user.username)
+        # atrubui para HTTP_AUTHORIZATION do self.client
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         category = CategoryFactory()
         # criação do objeto
         data = json.dumps({
@@ -50,7 +61,7 @@ class TestProductViewSet(APITestCase):
             'category_id': [category.id]
         })
 
-        # utilizando o delf.cliente que ja esta com authorization token
+        # utilizando o self.cliente que ja esta com authorization token
         # fazendo um post, data é as informações que esta sendo enviada
         response = self.client.post(
             reverse('product-list', kwargs={'version': 'v1'}),

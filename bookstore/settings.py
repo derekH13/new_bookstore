@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'order',
     # django_debug_toolbar
     'debug_toolbar',
+    # token
+    "rest_framework.authtoken",
 ]
 
 # midware fica entre url e viewset
@@ -146,4 +148,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # total de resutados por pagina
     'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # uma autentificação basica do rest framework
+        'rest_framework.authentication.BasicAuthentication',
+        # distribui para diversas instancias/sessions
+        'rest_framework.authentication.SessionAuthentication',
+        # uma autentificação com token
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }

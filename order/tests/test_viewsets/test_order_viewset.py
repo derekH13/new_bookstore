@@ -27,8 +27,16 @@ class TestOrderViewSet(APITestCase):
         )
         # passando uma lista ([self.product])
         self.order = OrderFactory(product=[self.product])
+        # criação do token com o user atual
+        token = Token.objects.create(user=self.order.user)
+        # toke salvo
+        token.save()
 
     def test_order(self):
+        # pega o token do usuario
+        token = Token.objects.get(user__username=self.order.user.username)
+        # atrubui para HTTP_AUTHORIZATION do self.client
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         # fazendo uma requisição usando o name da url
         response = self.client.get(
             reverse("order-list", kwargs={"version": "v1"}))
@@ -44,22 +52,26 @@ class TestOrderViewSet(APITestCase):
 
         # faz o caminho para verificar o valor title e espera que tenha o mesmo valor criado no self.product.title
         self.assertEqual(
-            order_data[0]["product"][0]["title"], self.product.title
+            order_data['results'][0]["product"][0]["title"], self.product.title
         )
         # faz o caminho para verificar o valor price e espera que tenha o mesmo valor criado no self.product.price
         self.assertEqual(
-            order_data[0]["product"][0]["price"], self.product.price
+            order_data['results'][0]["product"][0]["price"], self.product.price
         )
         self.assertEqual(
-            order_data[0]["product"][0]["active"], self.product.active
+            order_data['results'][0]["product"][0]["active"], self.product.active
         )
         self.assertEqual(
-            order_data[0]["product"][0]["category"][0]["title"],
+            order_data['results'][0]["product"][0]["category"][0]["title"],
             self.category.title,
         )
 
     # criando um order
     def test_create_order(self):
+        # pega o token do usuario
+        token = Token.objects.get(user__username=self.order.user.username)
+        # atrubui para HTTP_AUTHORIZATION do self.client
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         # factory para pegar informações
         user = UserFactory()
         product = ProductFactory()
