@@ -41,9 +41,14 @@ INSTALLED_APPS = [
     'django_extensions',
     # declarado os apps
     'product',
+    # django_rest_framework
+    'rest_framework',
     'order',
+    # django_debug_toolbar
+    'debug_toolbar',
 ]
 
+# midware fica entre url e viewset
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # debug_toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'bookstore.urls'
@@ -126,3 +133,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Aonde vai ser executado
+# Debug toolbar settings
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    # utilizando a class padrao
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # total de resutados por pagina
+    'PAGE_SIZE': 10,
+}
