@@ -20,7 +20,7 @@ from django.urls import path, re_path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    # do django-rest-framework
+    # do django_debug_toolbar
     path("__debug__/", include("debug_toolbar.urls")),
     path("admin/", admin.site.urls),
     # incluindo as rotas dos apps order/product
