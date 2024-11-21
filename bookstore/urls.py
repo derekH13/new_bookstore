@@ -26,6 +26,6 @@ urlpatterns = [
     # incluindo as rotas dos apps order/product
     re_path("bookstore/(?P<version>(v1|v2))/", include("order.urls")),
     re_path("bookstore/(?P<version>(v1|v2))/", include("product.urls")),
-    # fazer um post com informações do user, e gerar um tokken
+    # fazer um post com informações do user, e gerar um tokken (para ser usada no front)
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

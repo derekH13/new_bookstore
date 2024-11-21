@@ -7,7 +7,12 @@ from product.serializers.product_serializer import ProductSerializer
 
 
 class ProductViewSet(ModelViewSet):
-
+    # adicionando as duas classes de autentificação (esta no setting)
+    # BasicAuthentication uma autentificação simples, e token
+    authentication_classes = [SessionAuthentication,
+                              BasicAuthentication, TokenAuthentication]
+    # faz uma interceptação da resquest/cahmada para verificar se o user esta autorizado ou não (atraves do tokken autenfication)
+    permission_classes = [IsAuthenticated]
     serializer_class = ProductSerializer
 
     def get_queryset(self):

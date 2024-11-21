@@ -9,7 +9,9 @@ from order.serializers import OrderSerializer
 
 
 class OrderViewSet(ModelViewSet):
-
+    authentication_classes = [SessionAuthentication,
+                              BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     # definindo o serializer que esta viewset esta relacionada
     serializer_class = OrderSerializer
     # a query de listagem vai ser ordenado pelo id

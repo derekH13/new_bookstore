@@ -25,7 +25,7 @@ class CategoryViewSet(APITestCase):
         # passando para json
         category_data = json.loads(response.content)
         # confere se o title do category criado é igual au que foi feito antes
-        self.assertEqual(category_data
+        self.assertEqual(category_data['results']
                          [0]['title'], self.category.title)
 
     def test_create_category(self):
@@ -41,7 +41,7 @@ class CategoryViewSet(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        # fazendo um get em procurando um title = 'CPU'
+        # fazendo um get em procurando um title = 'CPU', vai retornar o objeto
         created_category = Category.objects.get(title='CPU')
 
         self.assertEqual(created_category.title, 'CPU')
