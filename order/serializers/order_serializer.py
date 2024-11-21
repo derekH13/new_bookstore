@@ -29,7 +29,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
     # sobre escrevendo uma função do ModelSerializer
     def create(self, validated_data):
+        # tira todos os valores product_id
         product_data = validated_data.pop("product_id")
+        # tira todos os valores user
         user_data = validated_data.pop("user")
 
         order = Order.objects.create(user=user_data)
