@@ -33,7 +33,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
 
         if extracted:
             for categories in extracted:
-                # adicionando categoria por categoria (list)
+                # adicionando categoria por categoria (list), category é manytomany
                 self.category.add(categories)
 
     class Meta:
