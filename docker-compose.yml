@@ -5,7 +5,7 @@ services:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - . :/usr/src/app/
+      - .:/app
     ports:
       - 8000:8000
     # definindo aonde esta as variaveis de ambiente
@@ -32,3 +32,5 @@ networks:
 
 volumes:
   postgres_data:
+
+  
