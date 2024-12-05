@@ -11,7 +11,8 @@ services:
     # definindo aonde esta as variaveis de ambiente
     env_file:
       - ./env.dev
-    networks:
+      # config para network
+    networks: 
       - backend
     # dependencia para esta aplicação
     depends_on:
@@ -24,6 +25,7 @@ services:
       - POSTGRES_USER=dev
       - POSTGRES_PASSWORD=dev
       - POSTGRES_DB=bookstore_db
+      #config network
     networks:
       - backend
 networks:
