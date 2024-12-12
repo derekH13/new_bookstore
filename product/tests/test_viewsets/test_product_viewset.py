@@ -22,16 +22,8 @@ class TestProductViewSet(APITestCase):
             title='rtx gpu 1',
             price=1000,
         )
-        # criação do token com o user atual
-        token = Token.objects.create(user=self.user)
-        # token salvo
-        token.save()
 
     def test_get_all_product(self):
-        # pega o token do usuario
-        token = Token.objects.get(user__username=self.user.username)
-        # atrubui para HTTP_AUTHORIZATION do self.client
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         # usando o self.client para fazer requisição usando o basename
         response = self.client.get(
             reverse('product-list', kwargs={'version': 'v1'})
@@ -49,10 +41,6 @@ class TestProductViewSet(APITestCase):
                          [0]['active'], self.product.active)
 
     def test_create_product(self):
-        # pega o token do usuario
-        token = Token.objects.get(user__username=self.user.username)
-        # atrubui para HTTP_AUTHORIZATION do self.client
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         category = CategoryFactory()
         # criação do objeto
         data = json.dumps({
