@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8, 3.9]
+        python-version: [3.12] # If you want to test across multiple versions, expand this array
 
     runs-on: ubuntu-latest
 
@@ -20,20 +20,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install poetry
-        # comando para instalar o poetry
         run: |
           python -m ensurepip
           python -m pip install --upgrade pip
           python -m pip install --upgrade poetry
 
-        # verificando se o poetry foi instalado com sucesso
       - name: View poetry --help
         run: poetry --help
 
-        # instalando as dependencias do projeto
       - name: Install dependencies
-        shell: bash
-        run: python -m poetry install
+        run: poetry install # Simply using poetry to install dependencies
 
       - name: Test
         run: |
