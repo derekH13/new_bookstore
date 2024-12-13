@@ -1,3 +1,5 @@
+# arquivo do github actions
+
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 # para cada event <push> ele executa essas actions
