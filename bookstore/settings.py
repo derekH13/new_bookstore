@@ -68,11 +68,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bookstore.urls'
 
-# add
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "bookstore", "template")],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
