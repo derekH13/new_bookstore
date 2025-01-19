@@ -68,6 +68,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bookstore.urls'
 
+# add
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
