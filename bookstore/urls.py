@@ -18,7 +18,7 @@ import debug_toolbar
 from django.contrib import admin
 from django.urls import path, re_path, include
 from rest_framework.authtoken.views import obtain_auth_token
-from bookstore import views
+from new_bookstore import views
 
 urlpatterns = [
     # do django_debug_toolbar
